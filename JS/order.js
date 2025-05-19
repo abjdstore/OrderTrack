@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const progressPercentage = 39; 
+    const progressPercentage = 39;
     document.querySelector('.status-progress').style.width = progressPercentage + '%';
 
     function isElementInViewport(el) {
@@ -54,9 +54,56 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const productsContainer = document.querySelector('.products-scroll-container');
+    const detailsContainer = document.querySelector('.details-scroll-container');
 
     addDragToScroll(productsContainer);
     addDragToScroll(statusContainer);
+    addDragToScroll(detailsContainer);
+
+    const statusDescriptions = {
+        "Paid": "Your payment was successful. We're preparing your order.",
+        "Failed": "Your payment failed. Please retry or contact support.",
+        "Under Processing": "Your order is being processed. This might take some time.",
+        "Delivered to Fulfilment Center": "Your order has reached the fulfilment center and will be shipped soon.",
+        "Shipped": "Your order is on the way. Track its location using the tracking number.",
+        "Delivery Failed": "Delivery failed. Please contact the courier for further assistance.",
+        "Delivery Rescheduled": "Delivery has been rescheduled to a later date.",
+        "Delivered to Customer": "Your order has been delivered successfully.",
+        "Rejected / Returned": "The order has been returned or rejected by the customer.",
+        "Tracking No. Added": "A tracking number has been added for your order."
+    };
+
+    const orderContainer = document.querySelector('.order-container');
+    const descriptionSection = document.createElement('div');
+    descriptionSection.className = 'order-description p-3';
+    descriptionSection.style.display = 'none';
+    orderContainer.appendChild(descriptionSection);
+
+    function displayDescription(label) {
+        if (label && statusDescriptions[label]) {
+            descriptionSection.innerHTML = '<strong>Description:</strong> ' + statusDescriptions[label];
+            descriptionSection.style.display = 'block';
+            descriptionSection.style.borderTop = '1px solid #eee';
+            descriptionSection.style.marginTop = '20px';
+            descriptionSection.style.backgroundColor = '#f8f9fa';
+            descriptionSection.style.borderRadius = '5px';
+        }
+    }
+
+    document.querySelectorAll('.status-circle').forEach((circle, index) => {
+        circle.addEventListener('click', () => {
+            const labels = document.querySelectorAll('.status-label');
+            const label = labels[index]?.textContent?.trim();
+            displayDescription(label);
+        });
+    });
+
+    document.querySelectorAll('.status-label').forEach((label, index) => {
+        label.addEventListener('click', () => {
+            const labelText = label.textContent.trim();
+            displayDescription(labelText);
+        });
+    });
 });
 const statusData = [
     { label: "Paid", icon: "fa-money-bill", active: true, left: 5 },
@@ -96,13 +143,13 @@ const lastActive = activeStatuses[activeStatuses.length - 1];
 statusProgress.style.width = `${lastActive ? lastActive.left : 0}%`;
 
 const products = [
-    { img: "../Image/image.png", alt: "Dell Laptop", details: ["Dell Laptop with 500GB HDD", "8GB RAM"], price: "$950" },
-    { img: "../Image/image.png", alt: "HP Laptop", details: ["HP Laptop with 500GB HDD", "8GB RAM"], price: "$850" },
-    { img: "../Image/image.png", alt: "ACER Laptop", details: ["ACER Laptop with 500GB HDD", "8GB RAM"], price: "$650" },
-    { img: "../Image/image.png", alt: "MacBook Pro", details: ["MacBook Pro with 1TB SSD", "16GB RAM"], price: "$1850" },
-    { img: "../Image/image.png", alt: "Lenovo ThinkPad", details: ["Lenovo ThinkPad with 512GB SSD", "16GB RAM"], price: "$1200" },
-    { img: "../Image/image.png", alt: "ASUS ROG", details: ["ASUS ROG Gaming Laptop with 1TB SSD", "32GB RAM"], price: "$1750" },
-    { img: "../Image/image.png", alt: "Microsoft Surface", details: ["Microsoft Surface with 512GB SSD", "16GB RAM"], price: "$1350" },
+    { img: "../Image/image.png", alt: "Dell Laptop", details: ["Dell Laptop with 500GB HDD", "8GB RAM"], price: "$950", quantity: 1 },
+    { img: "../Image/image.png", alt: "HP Laptop", details: ["HP Laptop with 500GB HDD", "8GB RAM"], price: "$850", quantity: 5 },
+    { img: "../Image/image.png", alt: "ACER Laptop", details: ["ACER Laptop with 500GB HDD", "8GB RAM"], price: "$650", quantity: 3 },
+    { img: "../Image/image.png", alt: "MacBook Pro", details: ["MacBook Pro with 1TB SSD", "16GB RAM"], price: "$1850", quantity: 8 },
+    { img: "../Image/image.png", alt: "Lenovo ThinkPad", details: ["Lenovo ThinkPad with 512GB SSD", "16GB RAM"], price: "$1200", quantity: 1 },
+    { img: "../Image/image.png", alt: "ASUS ROG", details: ["ASUS ROG Gaming Laptop with 1TB SSD", "32GB RAM"], price: "$1750", quantity: 2 },
+    { img: "../Image/image.png", alt: "Microsoft Surface", details: ["Microsoft Surface with 512GB SSD", "16GB RAM"], price: "$1350", quantity: 1 },
 ];
 
 const container = document.querySelector('.products-scroll-container');
@@ -124,6 +171,11 @@ products.forEach(product => {
         details.appendChild(detailDiv);
     });
 
+    const quantityDiv = document.createElement('div');
+    quantityDiv.classList.add('product-quantity');
+    quantityDiv.textContent = `Quantity: ${product.quantity}`;
+    details.appendChild(quantityDiv);
+
     const price = document.createElement('div');
     price.classList.add('product-price');
     price.textContent = product.price;
@@ -133,4 +185,17 @@ products.forEach(product => {
     productItem.appendChild(price);
 
     container.appendChild(productItem);
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    const dropdownButton = document.getElementById('statusDropdown');
+
+    dropdownItems.forEach(item => {
+        item.addEventListener('click', function (event) {
+            event.preventDefault();
+            dropdownButton.textContent = this.textContent;
+        });
+    });
 });

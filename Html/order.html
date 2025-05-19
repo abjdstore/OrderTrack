@@ -26,25 +26,51 @@
             <div class="mb-3">
                 <h6>Order ID: OD45345345435</h6>
             </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <strong>Estimated Delivery time:</strong>
-                    <div>29 nov 2019</div>
-                </div>
-                <div class="col-md-3">
-                    <strong>Shipping BY:</strong>
-                    <div>BLUEDART, | <i class="fas fa-phone"></i> +1598675986</div>
-                </div>
-                <div class="col-md-3">
-                    <strong>Status:</strong>
-                    <div>Delivered to Fulfilment Center</div>
-                </div>
-                <div class="col-md-3">
-                    <strong>Tracking #:</strong>
-                    <div>BD045903594059</div>
+            <div class="" style="border: 1px solid #eee; padding: 15px;">
+                <div class="row">
+                    <div class="col-md-2">
+                        <strong>Estimated Delivery time:</strong>
+                        <div>29 nov 2019</div>
+                    </div>
+                    <div class="col-md-2">
+                        <strong>Shipping BY:</strong>
+                        <div>BLUEDART, | <i class="fas fa-phone"></i> +1598675986</div>
+                    </div>
+                    <div class="col-md-2 col-12">
+                        <strong>Status:</strong>
+                        <div class="dropdown">
+                            <button class="btn btn-link dropdown-toggle p-0 text-decoration-none w-100 text-start"
+                                type="button" id="statusDropdown" data-bs-toggle="dropdown" data-bs-display="static"
+                                aria-expanded="false" style="color: black;">
+                                Delivered to Fulfilment Center
+                            </button>
+
+                            <ul class="dropdown-menu w-100" aria-labelledby="statusDropdown">
+                                <li><a class="dropdown-item" href="#">Delivered to Fulfilment Center</a></li>
+                                <li><a class="dropdown-item" href="#">Shipped</a></li>
+                                <li><a class="dropdown-item" href="#">Processing</a></li>
+                                <li><a class="dropdown-item" href="#">Cancelled</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <strong>Tracking #:</strong>
+                        <div>BD045903594059</div>
+                    </div>
+                    <div class="col-md-2">
+                        <strong>Payment Method:</strong>
+                        <div>Cash</div>
+                    </div>
+                    <div class="col-md-2">
+                        <strong>Shipping Method:</strong>
+                        <div><strong>Name:</strong> Expedited shipping</div>
+                        <div><strong>Price:</strong> $13</div>
+                    </div>
                 </div>
             </div>
         </div>
+
 
         <div class="order-status">
             <div class="status-container">
@@ -58,6 +84,11 @@
         <div class="product-list">
             <div class="products-scroll-container"></div>
         </div>
+    </div>
+
+    <div class="barcode">
+        <div style="font-size: larger; font-weight: bold; margin-right: 20px;">Order BarCode: </div>
+        <img src="../Image/barcode.png" alt="barcode" style="width: 200px;">
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
